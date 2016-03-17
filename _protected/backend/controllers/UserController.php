@@ -53,6 +53,7 @@ class UserController extends BackendController
     public function actionCreate()
     {
         $user = new User(['scenario' => 'create']);
+        $user->chapter_id = 0;
         $role = new Role();
 
         if ($user->load(Yii::$app->request->post()) && 
@@ -73,6 +74,33 @@ class UserController extends BackendController
         else 
         {
             return $this->render('create', [
+                'user' => $user,
+                'role' => $role,
+            ]);
+        }
+    }
+    public function actionCreateAmbassador()
+    {    $user = new User(['scenario' => 'create']);
+        $role = new Role();
+
+        if ($user->load(Yii::$app->request->post()) &&
+            $role->load(Yii::$app->request->post()) &&
+            Model::validateMultiple([$user, $role]))
+        {
+            $user->setPassword($user->password);
+            $user->generateAuthKey();
+
+            if ($user->save())
+            {
+                $role->user_id = $user->getId();
+                $role->save();
+            }
+
+            return $this->redirect('index');
+        }
+        else
+        {
+            return $this->render('create-ambassador', [
                 'user' => $user,
                 'role' => $role,
             ]);

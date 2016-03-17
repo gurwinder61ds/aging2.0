@@ -27,9 +27,9 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($user, 'status')->dropDownList($user->statusList) ?>
 
+        <?= $form->field($user, 'chapter_id')->dropDownList($user->chapters) ?>
 
-        <?= $form->field($role, 'item_name')->hiddenInput(['value'=> "admin"])->label(false) ?>
-
+        <?= $form->field($role, 'item_name')->hiddenInput(['value'=> "ambassador"])->label(false) ?>
 
     <div class="form-group">     
         <?= Html::submitButton($user->isNewRecord ? Yii::t('app', 'Create') 

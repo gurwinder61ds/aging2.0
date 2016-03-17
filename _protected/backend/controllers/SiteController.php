@@ -2,7 +2,6 @@
 namespace backend\controllers;
 
 use common\models\LoginForm;
-use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use Yii;
@@ -11,7 +10,7 @@ use Yii;
  * Site controller.
  * It is responsible for displaying static pages, and logging users in and out.
  */
-class SiteController extends Controller
+class SiteController extends BackendController
 {
     /**
      * Returns a list of behaviors that this component should behave as.

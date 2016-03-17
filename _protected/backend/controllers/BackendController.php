@@ -22,23 +22,47 @@ class BackendController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'controllers' => ['user'],
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'controllers' => ['site'],
+                        'actions' => ['login', 'error'],
                         'allow' => true,
-                        'roles' => ['admin'],
+                    ],
+                    [
+                        'controllers' => ['site'],
+                        'actions' => ['logout','index'],
+                        'allow' => true,
+                        'roles' => ['admin','theCreator'],
+                    ],
+                    [
+                        'controllers' => ['user'],
+                        'actions' => ['index', 'view', 'create', 'create-ambassador', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['admin','theCreator'],
                     ],
                     [
                         'controllers' => ['setting-attributes'],
                         'actions' => ['index', 'globalsetting'],
                         'allow' => true,
-                        'roles' => ['admin'],
-                    ],					
+                        'roles' => ['admin','theCreator'],
+                    ],
+                    [
+                        'controllers' => ['chapters'],
+                        'actions' => ['index', 'create'],
+                        'allow' => true,
+                        'roles' => ['admin','theCreator'],
+                    ],
 					
                     [
                         // other rules
                     ],
 
                 ], // rules
+                'denyCallback' => function ($rule, $action) {
+                    if(Yii::$app->user->isGuest){
+                        return $this->redirect(['site/login']);
+                    }else{
+                        return $this->redirect(Yii::$app->params['baseurl']);
+                    }
+                },
 
             ], // access
 

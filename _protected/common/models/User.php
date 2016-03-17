@@ -2,6 +2,7 @@
 namespace common\models;
 
 use common\rbac\models\Role;
+use yii\helpers\ArrayHelper;
 use nenad\passwordStrength\StrengthValidator;
 use yii\behaviors\TimestampBehavior;
 use Yii;
@@ -34,8 +35,9 @@ class User extends UserIdentity
     {
         return [
             [['username', 'email'], 'filter', 'filter' => 'trim'],
-            [['username', 'email', 'status'], 'required'],
+            [['username', 'email', 'status', 'chapter_id'], 'required'],
             ['email', 'email'],
+            ['chapter_id', 'integer'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             // password field is required on 'create' scenario
@@ -255,6 +257,10 @@ class User extends UserIdentity
         ];
 
         return $statusArray;
+    }
+    public function getChapters(){
+        $chapters=Chapters::find()->orderBy('name')->all();
+        return ArrayHelper::map($chapters,'id','name');
     }
 
     /**

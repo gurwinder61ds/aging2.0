@@ -46,6 +46,7 @@ class AuthItem extends ActiveRecord
             return static::find()->select('name')
                                  ->where(['type' => 1])
                                  ->andWhere(['!=', 'name', 'theCreator'])
+                                 ->andWhere(['!=', 'name', 'editor'])
                                  ->all();
         }
     }        

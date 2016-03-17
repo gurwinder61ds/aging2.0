@@ -35,7 +35,7 @@
                         'url' => '#',
                         'items' => [
                             ['label' => 'All Chapters', 'icon' => 'fa fa-angle-right', 'url' => ['chapters/index'],'active' => ($this->context->route == 'chapters/index')],
-                            ['label' => 'Add New Chapter', 'icon' => 'fa fa-angle-right', 'url' => ['/countries/all']],
+                            ['label' => 'Add New Chapter', 'icon' => 'fa fa-angle-right', 'url' => ['chapters/create']],
                         ],
                     ],
 
@@ -49,14 +49,14 @@
                         ],
                     ],
 
-					['label' => 'Menu Management', 'icon' => 'fa fa-bars', 'url' => ['/menu'],'active' => ($this->context->route == 'admin/menu/index'),],
+					/*['label' => 'Menu Management', 'icon' => 'fa fa-bars', 'url' => ['/menu'],'active' => ($this->context->route == 'admin/menu/index'),],
 
 					[   'label' => 'Website Settings',
                         'icon' => 'fa fa-cogs',
                         'url' => ['/setting-attributes/globalsetting'],
                         	
 					],  
-					
+					*/
 
 					
                 ],
