@@ -21,8 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= Html::a('Inactive States', ['inactive-states',  'country_id' => $country->id], ['class' => 'btn btn-default'.(($this->context->route == 'admin/countries/inactive-states')?' active':'')]) ?>
                     </div>
                     <?= Html::a('Add New State', ['add-state',  'id' => $country->id], ['class' => 'btn btn-primary pull-right']) ?>
-                    <?= Html::a('View Country Details', ['view',  'id' => $country->id], ['class' => 'btn btn-primary pull-right']) ?>
-                    <p></p>
+                   <p></p>
 					<?= GridView::widget([
 						'dataProvider' => $dataProvider,
 						'filterModel' => $searchModel,

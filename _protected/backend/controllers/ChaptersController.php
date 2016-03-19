@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Chapters;
+use common\models\States;
 use common\models\ChaptersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -86,12 +87,15 @@ class ChaptersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $states = new States();
+        $states->country_id = $model->country_id;
+        $statesArray = $states->statesArray;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'states' => $statesArray ,
             ]);
         }
     }

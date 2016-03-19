@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "chapters".
  *
@@ -31,7 +32,7 @@ class Chapters extends ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['state_id', 'country_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 50]
         ];
     }
@@ -44,6 +45,8 @@ class Chapters extends ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'state_id' => 'State',
+            'country_id' => 'Country',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -70,5 +73,20 @@ class Chapters extends ActiveRecord
     public static function find()
     {
         return new ChaptersQuery(get_called_class());
+    }
+
+    public function getState()
+    {
+        return $this->hasOne(States::className(), ['id' => 'state_id']);
+    }
+
+    public function getCountry()
+    {
+        return $this->hasOne(Countries::className(), ['id' => 'country_id']);
+    }
+
+    public function getCountries(){
+        $countries = Countries::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($countries,'id','name');
     }
 }

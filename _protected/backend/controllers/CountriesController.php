@@ -22,6 +22,7 @@ use common\traits\AjaxStatusTrait;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\web\Response;
 
 /**
  * CountryController implements the CRUD actions for Countries model.
@@ -458,5 +459,16 @@ class CountriesController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionActiveStates($id)
+    {
+        $model = new States();
+        $model->country_id = $id;
+        $states = $model->getStates();
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return [
+            $states
+        ];
     }
 }

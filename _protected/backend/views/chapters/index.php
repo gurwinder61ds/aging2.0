@@ -21,11 +21,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        //'filterModel' => $searchModel,
+                        'filterModel' => $searchModel,
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn','header'=>'S.No.'],
 
                             'name',
+                            [
+                                'attribute' => 'state_id',
+                                'value' =>  function ($model) {
+                                    return $model->state?$model->state->name:"Not Set";
+                                },
+                            ],
+                            [
+                                'attribute' => 'country_id',
+                                'value' =>  function ($model) {
+                                    return $model->country?$model->country->name:"Not Set";
+                                },
+                            ],
                             [
                                 'attribute' => 'status',
                                 'value' => function ($model) {

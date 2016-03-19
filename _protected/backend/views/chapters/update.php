@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
                 <div class="box-body table-responsive">
                 <?= $this->render('_form', [
                     'model' => $model,
+                    'states' => $states,
                 ]) ?>
                 </div>
             </div>

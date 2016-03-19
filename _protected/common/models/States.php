@@ -84,6 +84,10 @@ class States extends \yii\db\ActiveRecord
         }
         return $html;
     }
+    public function getStatesArray(){
+        $states = $this->find()->where(['country_id' => $this->country_id, 'status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($states,'id','name');
+    }
 
     /**
      * @inheritdoc
